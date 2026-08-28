@@ -1,0 +1,20 @@
+{
+  "name": "line-unsloth-worker",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "types": "wrangler types",
+    "db:create": "wrangler d1 create line-unsloth-db",
+    "db:migrate:local": "wrangler d1 migrations apply line-unsloth-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply line-unsloth-db --remote",
+    "queue:create": "wrangler queues create line-unsloth-inference"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "wrangler": "^4.68.0"
+  }
+}
