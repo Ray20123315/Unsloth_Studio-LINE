@@ -1,0 +1,51 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "line-unsloth-worker",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-28",
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "line.msiai.ray2025.com",
+      "custom_domain": true
+    }
+  ],
+  "vars": {
+    "UNSLOTH_BASE_URL": "https://unsloth-api.msiai.ray2025.com",
+    "DEFAULT_SYSTEM_PROMPT": "",
+    "MAX_HISTORY_MESSAGES": "20",
+    "MAX_STORED_MESSAGES": "200",
+    "MAX_OUTPUT_TOKENS_HARD_LIMIT": "16384",
+    "UNSLOTH_TIMEOUT_MS": "540000",
+    "ALLOWED_LINE_USER_IDS": ""
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "line-unsloth-db",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "LLM_QUEUE",
+        "queue": "line-unsloth-inference"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "line-unsloth-inference",
+        "max_batch_size": 1,
+        "max_batch_timeout": 1,
+        "max_retries": 5,
+        "max_concurrency": 1,
+        "retry_delay": 5
+      }
+    ]
+  },
+  "observability": {
+    "enabled": true
+  }
+}
