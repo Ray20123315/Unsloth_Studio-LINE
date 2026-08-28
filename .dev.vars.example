@@ -1,0 +1,5 @@
+# Copy this file to .dev.vars for local development only.
+# Never commit the real values.
+LINE_CHANNEL_SECRET="replace-me"
+LINE_CHANNEL_ACCESS_TOKEN="replace-me"
+UNSLOTH_API_KEY="sk-unsloth-replace-me"
